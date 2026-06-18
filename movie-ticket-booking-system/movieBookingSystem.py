@@ -3,7 +3,7 @@ from hall import Hall
 from city import City
 from seatType import SeatType
 from typing import List, Dict, Optional
-from bookingService import BookingService, SeatLockFailedException
+from bookingService import BookingService, SeatLockFailedException, SeatNotLockedException
 from userService import UserService
 from cinemaService import CinemaService
 from movieService import MovieService
@@ -92,7 +92,8 @@ class MovieBookingSystem:
         showSeats = self.showService.getShowSeats(show, showSeatNumbers)
         try:
             self.bookingService.lockShowSeats(showSeats)
+            return self.bookingService.confirmBooking(show, showSeats, user)
         except SeatLockFailedException as e:
             print("Failed to lock seats. Try another seat.")
-            return
-        return self.bookingService.confirmBooking(show, showSeats, user)
+        except SeatNotLockedException as e:
+            print("Seat is not locked. Lock the seat and try again.")

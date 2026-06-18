@@ -32,7 +32,10 @@ class Demo:
         # booking seats
         showSeats = [show1.showSeats[0]]
         ticket = system.processBooking(show1.id, [x.seat.seatNumber for x in showSeats], user1.id)
-        ticket.printTicket()
+        if ticket is not None:
+            ticket.printTicket()
+        else:
+            print("Failed to book ticket")
         
 
         print("Success")

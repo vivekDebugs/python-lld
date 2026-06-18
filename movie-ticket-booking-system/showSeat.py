@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 from showSeatStatus import ShowSeatStatus
 from idGenService import IdGenService
+from threading import Lock
 
 if TYPE_CHECKING:
     from seat import Seat
@@ -14,3 +15,4 @@ class ShowSeat:
         self.show = show
         self.status = ShowSeatStatus.AVAILABLE
         self.price = price
+        self.lock = Lock()
