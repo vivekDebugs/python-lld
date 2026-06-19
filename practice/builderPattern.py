@@ -1,10 +1,10 @@
 class Database:
 
-    def __init__(self, host, port, username, password):
-        self.host = host
-        self.port = port
-        self.usenrame = username
-        self.password = password
+    def __init__(self, builder: 'Builder'):
+        self.host = builder.host
+        self.port = builder.port
+        self.usenrame = builder.username
+        self.password = builder.password
 
     class Builder:
 
@@ -33,12 +33,7 @@ class Database:
         def build(self):
             if None in (self.host, self.port, self.username, self.password):
                 raise ValueError("All values needed")
-            return Database(
-                self.host,
-                self.port,
-                self.username,
-                self.password,
-            )
+            return Database(self)
 
 if __name__ == "__main__":
     db = Database.Builder().setHost("prod.db.com").setPort("3452").setUsername("johndoe").setPassword("lkjnliu@43lkjlk").build()
