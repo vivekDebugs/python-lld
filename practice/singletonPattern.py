@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 class Database:
 
     # static variable
@@ -12,14 +10,13 @@ class Database:
         return Database.instance
 
     def __init__(self):
-        if Database.instance is None:
-            self.rand = uuid4()
-            Database.instance = self
+        if Database.instance is not None:
+            raise Exception("Cannot have multiple instances of Database")
+        Database.instance = self
 
 if __name__ == "__main__":
     db = Database.getInstance()
     db2 = Database.getInstance()
-    db3 = Database.getInstance()
-    print(db.rand)
-    print(db2.rand)
-    print(db3.rand)
+
+    db.val = 29876346
+    print(db2.val)
